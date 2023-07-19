@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\RestaurantRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -28,6 +30,14 @@ class Restaurant
 
     #[ORM\ManyToOne(inversedBy: 'restaurants')]
     private ?User $user = null;
+
+    #[ORM\OneToMany(mappedBy: 'restaurant', targetEntity: RestaurantPicture::class)]
+    private Collection $restaurantPictures;
+
+    public function __construct()
+    {
+        $this->restaurantPictures = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -90,6 +100,36 @@ class Restaurant
     public function setUser(?User $user): static
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, RestaurantPicture>
+     */
+    public function getRestaurantPictures(): Collection
+    {
+        return $this->restaurantPictures;
+    }
+
+    public function addRestaurantPicture(RestaurantPicture $restaurantPicture): static
+    {
+        if (!$this->restaurantPictures->contains($restaurantPicture)) {
+            $this->restaurantPictures->add($restaurantPicture);
+            $restaurantPicture->setRestaurant($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRestaurantPicture(RestaurantPicture $restaurantPicture): static
+    {
+        if ($this->restaurantPictures->removeElement($restaurantPicture)) {
+            // set the owning side to null (unless already changed)
+            if ($restaurantPicture->getRestaurant() === $this) {
+                $restaurantPicture->setRestaurant(null);
+            }
+        }
 
         return $this;
     }
