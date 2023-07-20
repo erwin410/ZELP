@@ -3,19 +3,23 @@
 {% block title %}Hello HomeController!{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-    <h2>SubTitle : First Controller! </h2>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ '/Users/lvsprod/Documents/IFR Réunion/CDA - Project/CP5/ZELP/src/Controller/HomeController.php'|file_link(0) }}">src/Controller/HomeController.php</a></code></li>
-        <li>Your template at <code><a href="{{ '/Users/lvsprod/Documents/IFR Réunion/CDA - Project/CP5/ZELP/templates/home/index.html.twig'|file_link(0) }}">templates/home/index.html.twig</a></code></li>
-    </ul>
+{% include "./layout/header.html.twig" %}
+
+<div class='p-5'>
+    <h2>Example body text</h2>
+    <p>Nullam quis risus eget <a href="#">urna mollis ornare</a> vel eu leo. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nullam id dolor id nibh ultricies vehicula.</p>
+    <p><small>This line of text is meant to be treated as fine print.</small></p>
+    <p>The following is <strong>rendered as bold text</strong>.</p>
+    <p>The following is <em>rendered as italicized text</em>.</p>
+    <p>An abbreviation of the word attribute is <abbr title="attribute">attr</abbr>.</p>
 </div>
+
+<div class='p-5'>
+    {% include "./layout/carousel.html.twig" %}
+</div>
+
+{% include "./layout/footer.html.twig" %}
+
 {% endblock %}
